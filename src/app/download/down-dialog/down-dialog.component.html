@@ -1,0 +1,37 @@
+<app-alerts></app-alerts>
+<div class="container" fxLayout="column" fxLayoutAlign="space-evenly stretch">
+  <h1 mat-dialog-title>Download Files</h1>
+  <label>Enter The File Hash: </label>
+  <input type="text" name="fileHash" [(ngModel)]="fileHash" />
+  <label>Password:</label>
+  <input type="password" name="passwd" id="passwd" [(ngModel)]="passwd" (ngModelChange)="checkPassword($event)"/>
+  <sub>(Enter the 8 letter password)</sub>
+  <div>
+  	<mat-list>
+      <h4 mat-line *ngIf="reqOngoing">Completing the request please be patient....</h4>
+    	<h4 mat-line>{{fname}}</h4>
+        <mat-progress-bar *ngIf="display" mode="determinate" [value]="progress | async"></mat-progress-bar>
+    </mat-list>
+    <br>
+    <button  [disabled] = "pswdFlag" mat-raised-button color="primary" class="down-files-btn" (click)="downloadFiles()">
+      Download and Save the File
+    </button>
+    <button [disabled]="downloading" mat-raised-button color="primary" mat-dialog-close (click)="close()">Close</button>
+  </div>
+
+  <!-- This is the content of the dialog, containing a list of the files to upload -->
+<!--   <mat-dialog-content fxFlex>
+    <mat-list>
+      <mat-list-item *ngFor="let file of files">
+        <h4 mat-line>{{file.name}}</h4>
+        <mat-progress-bar *ngIf="progress" mode="determinate" [value]="progress[file.name].progress | async"></mat-progress-bar>
+      </mat-list-item>
+    </mat-list>
+  </mat-dialog-content> -->
+
+  <!-- This are the actions of the dialog, containing the primary and the cancel button-->
+<!--   <mat-dialog-actions class="actions">
+    <button *ngIf="showCancelButton" mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" [disabled]="!canBeClosed" (click)="closeDialog()">{{primaryButtonText}}</button>
+  </mat-dialog-actions> -->
+</div>

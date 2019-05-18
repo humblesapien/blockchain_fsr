@@ -1,0 +1,87 @@
+<div class="split_right">
+  <mat-accordion >
+    <mat-expansion-panel class="mat_accordian_send_message" [expanded]="step === 1" (opened)="setStep(1)">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Compose Message
+        </mat-panel-title>
+        
+      </mat-expansion-panel-header>
+
+      <div class="form_main">
+        <div class="form">
+          <form id="contactFrm" name="contactFrm">
+            <input type="text" id = "email" class = "txt" name="email" placeholder="Enter Receipient Email" [(ngModel)]="email">
+            <input type="text" id = "hash" class = "txt" name="hash" placeholder="Enter File Hash" [(ngModel)]="hash">
+            <input type="password" id = "password" class = "txt" name="password" placeholder="Enter File Password" [(ngModel)]="password">
+            <textarea placeholder="Your Message" name="message" type="text" class="txt_3" [(ngModel)]="message"></textarea>
+          </form>
+        
+          <input type="submit" value="send" name="submit" class="txt2" (click)="send()">
+        
+        </div>
+      </div>
+
+    </mat-expansion-panel>
+  </mat-accordion>
+  
+<app-upload  (click)="setStep(2)"></app-upload>
+<app-download (click)="setStep(3)"></app-download>
+
+  <mat-accordion >
+    <mat-expansion-panel class="mat_accordian_my_files" [expanded]="step === 4" (opened)="setStep(4)">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          My Files
+        </mat-panel-title>
+        
+      </mat-expansion-panel-header>
+
+          <div>
+            <mat-list>
+              <div *ngFor="let file of files_data" mat-line style="height: 30px; border-bottom: 1px solid gray;margin-bottom: 15px;">
+                <p class="file_name"  style="display:inline">{{ file.fileName }}</p>
+                <button mat-icon-button class="icon-button" style="float:right" (click)="messageComposer(file.fileHash)" >
+                  <mat-icon [inline]="true" class="icon-button">arrow_forward_icon</mat-icon>
+                </button>
+                <button mat-icon-button class="icon-button" style="float: right;" (click)="copyToClipboard(file.fileHash)">
+                  <mat-icon [inline]="true" class="icon-button">file_copy</mat-icon>
+                </button>
+              </div>
+            </mat-list>
+            <br>
+          </div>
+
+
+
+
+    </mat-expansion-panel>
+  </mat-accordion>
+      
+</div>
+
+<div class="split_left">
+  <button (click)="receive()" id="refresh" class ="left_button" type="submit"> Refresh</button>
+
+  <div style="height:90%;">
+    <perfect-scrollbar>
+      <div  *ngFor="let msg of local_storage_data">
+    
+       <mat-card style="background: white">
+          
+          <mat-card-header>
+              <mat-card-title>{{ msg.name }}</mat-card-title>
+          </mat-card-header>
+          
+          <mat-card-content>
+            <p style="word-break: break-all;">Hash: {{ msg.hash }} </p>
+            <p>Text: {{ msg.text }}</p>
+            <p>Password: {{ msg.password }}</p>
+          </mat-card-content>
+        
+        </mat-card> 
+      
+      </div>
+    </perfect-scrollbar>
+  </div>
+</div>
