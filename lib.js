@@ -1,4 +1,4 @@
-const Web3 = require('/home/kavish/Desktop/backend/node_modules/web3');
+const Web3 = require('node_modules/web3');
 const PORT = 8080;
 exp = require('express');
 const app = new exp();
